@@ -7,13 +7,15 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
+            background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fGJhY2tncm91bmR8ZW58MHx8fHwxNjg0MjY1NzY0&ixlib=rb-4.0.3&q=80&w=1080');
+            background-size: cover;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         .container {
@@ -21,8 +23,9 @@
             border: 2px solid #4CAF50;
             border-radius: 10px;
             padding: 20px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
         }
 
         button {
@@ -33,10 +36,39 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
             background-color: #45a049;
+        }
+
+        #fact {
+            font-size: 1.5em;
+            margin: 20px 0;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        img {
+            width: 100px;
+            height: auto;
+            margin-top: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
         }
     </style>
 </head>
@@ -45,24 +77,28 @@
         <h1>Fun Fact Generator</h1>
         <p id="fact">Click the button to generate a fun fact!</p>
         <button id="generate">Generate Fact</button>
+        <img id="factImage" src="" alt="Fun Fact Image" style="display: none;">
     </div>
     <script>
         const facts = [
-            "Honey never spoils.",
-            "A group of flamingos is called a 'flamboyance'.",
-            "Bananas are berries, but strawberries aren't.",
-            "Octopuses have three hearts.",
-            "Wombat poop is cube-shaped.",
-            "A day on Venus is longer than a year on Venus.",
-            "The Eiffel Tower can be 15 cm taller during the summer.",
-            "Some cats are allergic to humans.",
-            "A jiffy is an actual unit of time: 1/100th of a second.",
-            "The world's largest desert is Antarctica."
+            { text: "Honey never spoils.", image: "https://via.placeholder.com/100?text=Honey" },
+            { text: "A group of flamingos is called a 'flamboyance'.", image: "https://via.placeholder.com/100?text=Flamingos" },
+            { text: "Bananas are berries, but strawberries aren't.", image: "https://via.placeholder.com/100?text=Banana" },
+            { text: "Octopuses have three hearts.", image: "https://via.placeholder.com/100?text=Octopus" },
+            { text: "Wombat poop is cube-shaped.", image: "https://via.placeholder.com/100?text=Wombat" },
+            { text: "A day on Venus is longer than a year on Venus.", image: "https://via.placeholder.com/100?text=Venus" },
+            { text: "The Eiffel Tower can be 15 cm taller during the summer.", image: "https://via.placeholder.com/100?text=Eiffel+Tower" },
+            { text: "Some cats are allergic to humans.", image: "https://via.placeholder.com/100?text=Cat" },
+            { text: "A jiffy is an actual unit of time: 1 /100th of a second.", image: "https://via.placeholder.com/100?text=Jiffy" },
+            { text: "The world's largest desert is Antarctica.", image: "https://via.placeholder.com/100?text=Antarctica" }
         ];
 
         document.getElementById('generate').addEventListener('click', function() {
             const randomIndex = Math.floor(Math.random() * facts.length);
-            document.getElementById('fact').textContent = facts[randomIndex];
+            document.getElementById('fact').textContent = facts[randomIndex].text;
+            const factImage = document.getElementById('factImage');
+            factImage.src = facts[randomIndex].image;
+            factImage.style.display = 'block';
         });
     </script>
 </body>
